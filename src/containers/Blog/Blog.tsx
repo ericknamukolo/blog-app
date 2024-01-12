@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import axios, { AxiosResponse } from 'axios';
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
 import NewPost from '../../components/NewPost/NewPost';
 import './Blog.css';
 import PostModel from '../../models/post';
+import Posts from '../../providers/posts';
 
 class Blog extends Component {
   state = {
     posts: [] as PostModel[],
   };
   async componentDidMount(): Promise<any> {
-    var res: AxiosResponse = await axios.get(
-      'https://jsonplaceholder.typicode.com/posts'
-    );
-    const postsData: PostModel[] = res.data;
+    const postsData: PostModel[] = await new Posts().fetchPosts();
+
     this.setState({ posts: postsData });
   }
 

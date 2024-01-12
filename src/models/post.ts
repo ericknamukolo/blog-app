@@ -3,6 +3,7 @@ type PostModel = {
   body: string;
   title: string;
   userId: number;
+  author: string | undefined;
 };
 
 export default PostModel;
