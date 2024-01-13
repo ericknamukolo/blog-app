@@ -25,6 +25,14 @@ class Blog extends Component {
     this.setState({ selectedPost: post });
   };
 
+  deletePost = (postId: number) => {
+    let posts: PostModel[] = this.state.posts.filter(
+      (post) => post.id !== postId
+    );
+
+    this.setState({ posts: posts, selectedPost: null });
+  };
+
   render() {
     return (
       <div>
@@ -34,7 +42,7 @@ class Blog extends Component {
           })}
         </section>
         <section>
-          <FullPost post={this.state.selectedPost} />
+          <FullPost post={this.state.selectedPost} onRemove={this.deletePost} />
         </section>
         <section>
           <NewPost />
