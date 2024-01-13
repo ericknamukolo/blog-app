@@ -9,6 +9,7 @@ import Posts from '../../providers/posts';
 class Blog extends Component {
   state = {
     posts: [] as PostModel[],
+    selectedPost: null as PostModel | null,
   };
   async componentDidMount(): Promise<any> {
     const postsData: PostModel[] = await new Posts().fetchPosts();
@@ -16,16 +17,24 @@ class Blog extends Component {
     this.setState({ posts: postsData });
   }
 
+  // clickPost(post: PostModel): void {
+  //   this.setState({ selectedPost: post });
+  // }
+
+  clickPost = (post: PostModel) => {
+    this.setState({ selectedPost: post });
+  };
+
   render() {
     return (
       <div>
         <section className='Posts'>
           {this.state.posts.map((post) => {
-            return <Post key={post.id} post={post} />;
+            return <Post key={post.id} post={post} clicked={this.clickPost} />;
           })}
         </section>
         <section>
-          <FullPost />
+          <FullPost post={this.state.selectedPost} />
         </section>
         <section>
           <NewPost />
