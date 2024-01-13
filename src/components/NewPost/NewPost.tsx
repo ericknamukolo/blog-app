@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './NewPost.css';
 
-class NewPost extends Component {
+class NewPost extends Component<{ onAdd: (data: NewPost['state']) => void }> {
   state = {
     title: '',
     content: '',
@@ -33,7 +33,7 @@ class NewPost extends Component {
           <option value='Max'>Max</option>
           <option value='Manu'>Manu</option>
         </select>
-        <button>Add Post</button>
+        <button onClick={() => this.props.onAdd(this.state)}>Add Post</button>
       </div>
     );
   }

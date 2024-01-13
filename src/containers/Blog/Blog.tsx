@@ -33,6 +33,18 @@ class Blog extends Component {
     this.setState({ posts: posts, selectedPost: null });
   };
 
+  addPost = (data: NewPost['state']) => {
+    let updatedPosts: PostModel[] = this.state.posts;
+    updatedPosts.push({
+      author: data.author,
+      body: data.content,
+      id: Date.now(),
+      title: data.title,
+      userId: 0,
+    });
+    this.setState({ posts: updatedPosts });
+  };
+
   render() {
     return (
       <div>
@@ -45,7 +57,7 @@ class Blog extends Component {
           <FullPost post={this.state.selectedPost} onRemove={this.deletePost} />
         </section>
         <section>
-          <NewPost />
+          <NewPost onAdd={this.addPost} />
         </section>
       </div>
     );
