@@ -33,7 +33,17 @@ class NewPost extends Component<{ onAdd: (data: NewPost['state']) => void }> {
           <option value='Max'>Max</option>
           <option value='Manu'>Manu</option>
         </select>
-        <button onClick={() => this.props.onAdd(this.state)}>Add Post</button>
+        <button
+          onClick={() => {
+            if (this.state.author === '' || this.state.content === '') {
+              return;
+            }
+            this.props.onAdd(this.state);
+            this.setState({ content: '', title: '' });
+          }}
+        >
+          Add Post
+        </button>
       </div>
     );
   }
